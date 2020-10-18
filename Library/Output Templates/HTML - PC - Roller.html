@@ -17,382 +17,407 @@ defined by the Mozilla Public License, version 2.0.
 The <script> tag, and the code inside it, was added by Stevil.
 It is a test to see if we can roll from the character sheet.
 -->
-	<script>
-	var dieNum;
-	var dieVal;
-	var rData;
-	var DiceRolled = [];
-	var dieTotalRolled = [];
-	var HasLuck = false;
-	var LuckUsed = false;
-	var LuckPoints = 0;
-	var ButtonPushed = "";
-	document.addEventListener("DOMContentLoaded", function() {
-	  insertRollButtons();
-	  document.querySelectorAll(".Roll-O-Dice").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var rollName = "Bunch-o-Dice";
-		var rollValue = 1;
-		var dData = "3d+0(1)";
-		dData = prompt("Please enter your dice formula", dData);
-		if (dData == null || dData == "") {
-		  txt = "User cancelled the prompt.";
-		} else {
-		  rData = dData + " [" + rollValue + "] |+0| {" + rollName + "}";
-		  pushedBunchButton(rData);
-		}
-	  }));
-	  document.querySelectorAll(".roll-against-stats").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var rollName = element.innerHTML;
-		var rollValue = element.parentElement.previousElementSibling.innerHTML;
-		var rData = "3d+0(1) [" + rollValue + "] |+0| {" + rollName + "}";
-		pushedRollButton(rData);
-	  }));
-	  document.querySelectorAll(".roll-against-skills").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var rollName = element.innerHTML;
-		var rollValue = element.parentElement.nextElementSibling.innerHTML;
-		var rData = "3d+0(1) [" + rollValue + "] |+0| {" + rollName + "}";
-		pushedRollButton(rData);
-	  }));
-	  document.querySelectorAll(".roll-against-spells").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var rollName = element.innerHTML;
-		var rollValue = element.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
-		var rData = "3d+0(1) [" + rollValue + "] |+0| {" + rollName + "}";
-		pushedRollButton(rData);
-	  }));
-	  document.querySelectorAll(".roll-melee-damage").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var rollName = "Damage";
-		var rollValue = 1;
-		var rollDamage = element.innerHTML.split(" ");
-		var diceModifier = rollDamage[0].split("d");
-		if (diceModifier[1] == "") {
-		  rollDamage[0] = rollDamage[0] + "+0";
-		}
-		var dData = rollDamage[0];
-		rData = prompt("Please enter your dice formula\nDice Damage (Power) [Leave Alone] |Modifier| {Damage Roll Text}", dData + "(1) [" + rollValue + "] |+0| {" + rollName + "}");
-		if (rData == null || rData == "") {} else {
-		  pushedRollButton(rData);
-		}
-	  }));
-	  document.querySelectorAll(".roll-ranged-damage").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var rollName = "Damage";
-		var rollValue = 1;
-		var rollDamage = element.innerHTML.split(" ");
-		var diceModifier = rollDamage[0].split("d");
-		if (diceModifier[1] == "") {
-		  rollDamage[0] = rollDamage[0] + "+0";
-		}
-		var dData = rollDamage[0];
-		rData = prompt("Please enter your dice formula\nDice Damage (Power) [Leave Alone] |Modifier| {Damage Roll Text}", dData + "(1) [" + rollValue + "] |+0| {" + rollName + "}");
-		if (rData == null || rData == "") {} else {
-		  pushedRollButton(rData);
-		}
-	  }));
-	  document.querySelectorAll(".roll-melee-parry").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var MeleeWeapon = element.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML.split("\n");
-		var MeleeUsage = element.parentElement.previousElementSibling.previousElementSibling.innerHTML;
-		var rollName = "Parry with " + MeleeWeapon[0];
-		var rollValue = element.innerHTML;
-		rData = prompt("Please enter your dice formula\nDice Roll (Power) [Parry Level] |Modifier| {Parry Roll Text}", "3d+0" + "(1) [" + rollValue + "] |+0| {" + rollName + "}");
-		if (rData == null || rData == "") {} else {
-		  pushedRollButton(rData);
-		}
-	  }));
-	  document.querySelectorAll(".enc").forEach(element => element.addEventListener("click", (e) => {
-		console.clear();
-		var CurrentEncumbrance = document.querySelector('.enc.current').value;
-		var Encumbrance = element.value;
-		EncText = "Add: " + parseInt(CurrentEncumbrance - Encumbrance) + " to rolls that are affected by Encumbrance.";
-		console.log(EncText);
-		alert(EncText);
-	  }));
-	});
+    <script>
+    var dieNum;
+    var dieVal;
+    var rData;
+    var DiceRolled = [];
+    var dieTotalRolled = [];
+    var HasLuck = false;
+    var LuckUsed = false;
+    var LuckPoints = 0;
+    var ButtonPushed = "";
+    document.addEventListener("DOMContentLoaded", function() {
+      insertRollButtons();
+      document.querySelectorAll(".Roll-O-Dice").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var rollName = "Bunch-o-Dice";
+        var rollValue = 1;
+        var dData = "3d+0(1)";
+        dData = prompt("Please enter your dice formula", dData);
+        if (dData == null || dData == "") {
+          txt = "User cancelled the prompt.";
+        } else {
+          rData = dData + " [" + rollValue + "] |+0| {" + rollName + "}";
+          pushedBunchButton(rData);
+        }
+      }));
+      document.querySelectorAll(".roll-against-stats").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var rollName = element.innerHTML;
+        var rollValue = element.parentElement.previousElementSibling.innerHTML;
+        var rData = "3d+0(1) [" + rollValue + "] |+0| {" + rollName + "}";
+        pushedRollButton(rData);
+      }));
+      document.querySelectorAll(".roll-against-skills").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var rollName = element.innerHTML;
+        var rollValue = element.parentElement.nextElementSibling.innerHTML;
+        var encumbranceDifference = "+0";
+        encumbranceDifference = findEncumbrance(rollName);
+        var rData = "3d+0(1) [" + rollValue + "] |" + encumbranceDifference + "| {" + rollName + "}";
+        pushedRollButton(rData);
+      }));
+      document.querySelectorAll(".roll-against-spells").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var rollName = element.innerHTML;
+        var rollValue = element.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+        var rData = "3d+0(1) [" + rollValue + "] |+0| {" + rollName + "}";
+        pushedRollButton(rData);
+      }));
+      document.querySelectorAll(".roll-melee-damage").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var rollName = "Damage";
+        var rollValue = 1;
+        var rollDamage = element.innerHTML.split(" ");
+        var diceModifier = rollDamage[0].split("d");
+        if (diceModifier[1] == "") {
+          rollDamage[0] = rollDamage[0] + "+0";
+        }
+        var dData = rollDamage[0];
+        rData = prompt("Please enter your dice formula\nDice Damage (Power) [Leave Alone] |Modifier| {Damage Roll Text}", dData + "(1) [" + rollValue + "] |+0| {" + rollName + "}");
+        if (rData == null || rData == "") {} else {
+          pushedRollButton(rData);
+        }
+      }));
+      document.querySelectorAll(".roll-ranged-damage").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var rollName = "Damage";
+        var rollValue = 1;
+        var rollDamage = element.innerHTML.split(" ");
+        var diceModifier = rollDamage[0].split("d");
+        if (diceModifier[1] == "") {
+          rollDamage[0] = rollDamage[0] + "+0";
+        }
+        var dData = rollDamage[0];
+        rData = prompt("Please enter your dice formula\nDice Damage (Power) [Leave Alone] |Modifier| {Damage Roll Text}", dData + "(1) [" + rollValue + "] |+0| {" + rollName + "}");
+        if (rData == null || rData == "") {} else {
+          pushedRollButton(rData);
+        }
+      }));
+      document.querySelectorAll(".roll-melee-parry").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var MeleeWeapon = element.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML.split("\n");
+        var MeleeUsage = element.parentElement.previousElementSibling.previousElementSibling.innerHTML;
+        var rollName = "Parry with " + MeleeWeapon[0];
+        var rollValue = element.innerHTML;
+        rData = prompt("Please enter your dice formula\nDice Roll (Power) [Parry Level] |Modifier| {Parry Roll Text}", "3d+0" + "(1) [" + rollValue + "] |+0| {" + rollName + "}");
+        if (rData == null || rData == "") {} else {
+          pushedRollButton(rData);
+        }
+      }));
+      document.querySelectorAll(".enc").forEach(element => element.addEventListener("click", (e) => {
+        console.clear();
+        var CurrentEncumbrance = document.querySelector('.enc.current').value;
+        var Encumbrance = element.value;
+        EncText = "Add: " + parseInt(CurrentEncumbrance - Encumbrance) + " to rolls that are affected by Encumbrance.";
+        console.log(EncText);
+        alert(EncText);
+      }));
+    });
 
-	function insertRollButtons() {
-	  var element = document.querySelector("#sheet #personal #portrait").innerHTML;
-	  html = element + '<button class="Roll-O-Dice">Roll!</button>';
-	  document.querySelector("#sheet #personal #portrait").innerHTML = html;
-	  var element = document.querySelectorAll("#sheet #stats #attributes .fieldblock3 .label");
-	  for (var i = 0; i < element.length; i++) {
-		switch (element[i].innerHTML) {
-		  case "Basic Speed":
-		  case "Basic Move":
-		  case "Basic Thrust":
-		  case "Basic Swing":
-			break;
-		  default:
-			element[i].innerHTML = "<button class='roll-against-stats'>" + element[i].innerHTML + "</button>";
-		}
-	  }
-	  var element = document.querySelectorAll("#sheet #skills .desc");
-	  for (var i = 0; i < element.length; i++) {
-		var html = element[i].innerHTML.split('\n                ');
-		switch (html[0]) {
-		  case "Skills":
-			break;
-		  default:
-			var BookRef = element[i].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
-			if (BookRef != "") {
-			  element[i].innerHTML = "<button class='roll-against-skills'>" + html[0] + "</button>" + html[1] + html[2];
-			}
-		}
-	  }
-	  var element = document.querySelectorAll("#sheet #spells .desc");
-	  for (var i = 0; i < element.length; i++) {
-		var html = element[i].innerHTML.split('\n                ');
-		switch (html[0]) {
-		  case "Spells":
-			break;
-		  default:
-			var BookRef = element[i].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSiblinginnerHTML;
-			if (BookRef != "") {
-			  element[i].innerHTML = "<button class='roll-against-spells'>" + html[0] + "</button>" + html[1] + html[2];
-			}
-		}
-	  }
-	  var element = document.querySelectorAll("#sheet #melee .damage");
-	  for (var i = 0; i < element.length; i++) {
-		var html = element[i].innerHTML;
-		switch (html) {
-		  case "Damage":
-			break;
-		  default:
-			element[i].innerHTML = "<button class='roll-melee-damage'>" + html + "</button>";
-		}
-	  }
-	  var element = document.querySelectorAll("#sheet #ranged .damage");
-	  for (var i = 0; i < element.length; i++) {
-		var html = element[i].innerHTML;
-		switch (html) {
-		  case "Damage":
-			break;
-		  default:
-			element[i].innerHTML = "<button class='roll-ranged-damage'>" + html + "</button>";
-		}
-	  }
-	  var element = document.querySelectorAll("#sheet #melee .parry");
-	  for (var i = 0; i < element.length; i++) {
-		var html = element[i].innerHTML;
-		switch (html) {
-		  case "Parry":
-		  case "No":
-			break;
-		  default:
-			element[i].innerHTML = "<button class='roll-melee-parry'>" + html + "</button>";
-		}
-	  }
-	  var element = document.querySelectorAll("#sheet #encumbrance .encmarker");
-	  for (var i = 0; i < element.length; i++) {
-		if (element[i].classList.contains('current')) {
-		  element[i].innerHTML = "<input type='radio' id='enc' class='enc current' name='enc' value='" + i + "' checked='checked'>";
-		} else {
-		  element[i].innerHTML = "<input type='radio' id='enc' class='enc' name='enc' value='" + i + "'>";
-		}
-	  }
-	}
+    function insertRollButtons() {
+      var element = document.querySelector("#sheet #personal #portrait").innerHTML;
+      html = element + '<button class="Roll-O-Dice">Roll!</button>';
+      document.querySelector("#sheet #personal #portrait").innerHTML = html;
+      var element = document.querySelectorAll("#sheet #stats #attributes .fieldblock3 .label");
+      for (var i = 0; i < element.length; i++) {
+        switch (element[i].innerHTML) {
+          case "Basic Speed":
+          case "Basic Move":
+          case "Basic Thrust":
+          case "Basic Swing":
+            break;
+          default:
+            element[i].innerHTML = "<button class='roll-against-stats'>" + element[i].innerHTML + "</button>";
+        }
+      }
+      var element = document.querySelectorAll("#sheet #skills .desc");
+      for (var i = 0; i < element.length; i++) {
+        var html = element[i].innerHTML.split('\n                ');
+        switch (html[0]) {
+          case "Skills":
+            break;
+          default:
+            var BookRef = element[i].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+            if (BookRef != "") {
+              element[i].innerHTML = "<button class='roll-against-skills'>" + html[0] + "</button>" + html[1] + html[2];
+            }
+        }
+      }
+      var element = document.querySelectorAll("#sheet #spells .desc");
+      for (var i = 0; i < element.length; i++) {
+        var html = element[i].innerHTML.split('\n                ');
+        switch (html[0]) {
+          case "Spells":
+            break;
+          default:
+            var BookRef = element[i].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSiblinginnerHTML;
+            if (BookRef != "") {
+              element[i].innerHTML = "<button class='roll-against-spells'>" + html[0] + "</button>" + html[1] + html[2];
+            }
+        }
+      }
+      var element = document.querySelectorAll("#sheet #melee .damage");
+      for (var i = 0; i < element.length; i++) {
+        var html = element[i].innerHTML;
+        switch (html) {
+          case "Damage":
+            break;
+          default:
+            element[i].innerHTML = "<button class='roll-melee-damage'>" + html + "</button>";
+        }
+      }
+      var element = document.querySelectorAll("#sheet #ranged .damage");
+      for (var i = 0; i < element.length; i++) {
+        var html = element[i].innerHTML;
+        switch (html) {
+          case "Damage":
+            break;
+          default:
+            element[i].innerHTML = "<button class='roll-ranged-damage'>" + html + "</button>";
+        }
+      }
+      var element = document.querySelectorAll("#sheet #melee .parry");
+      for (var i = 0; i < element.length; i++) {
+        var html = element[i].innerHTML;
+        switch (html) {
+          case "Parry":
+          case "No":
+            break;
+          default:
+            element[i].innerHTML = "<button class='roll-melee-parry'>" + html + "</button>";
+        }
+      }
+      var element = document.querySelectorAll("#sheet #encumbrance .encmarker");
+      for (var i = 0; i < element.length; i++) {
+        if (element[i].classList.contains('current')) {
+          element[i].innerHTML = "<input type='radio' id='enc' class='enc current' name='enc' value='" + i + "' checked='checked'>";
+        } else {
+          element[i].innerHTML = "<input type='radio' id='enc' class='enc' name='enc' value='" + i + "'>";
+        }
+      }
+    }
 
-	function pushedBunchButton(rData) {
-	  console.log(rData);
-	  DieRolled = parseRollData(rData, 0);
-	  DieRoll = DieRolled.split("|");
-	  console.log(DieRoll[1]);
-	  textToClipboard(DieRoll[1]);
-	  alert(DieRoll[1]);
-	}
+    function pushedBunchButton(rData) {
+      console.log(rData);
+      DieRolled = parseRollData(rData, 0);
+      DieRoll = DieRolled.split("|");
+      console.log(DieRoll[1]);
+      textToClipboard(DieRoll[1]);
+      alert(DieRoll[1]);
+    }
 
-	function pushedRollButton(rData) {
-	  console.log(rData);
-	  DiceRolled[0] = parseRollData(rData, 0);
-	  FirstDieRoll = DiceRolled[0].split("|");
-	  DiceRolled[1] = parseRollData(rData, 0);
-	  DiceRolled[2] = parseRollData(rData, 0);
-	  console.log(FirstDieRoll[1]);
-	  BestDieRoll = findBestRoll(DiceRolled);
-	  skillName = rData.split("}");
-	  RollButtonPushed = skillName[0].split("{");
-	  if (RollButtonPushed[1] == "Damage") {
-		BestRoll = BestDieRoll[2];
-	  } else {
-		BestRoll = BestDieRoll[0];
-	  }
-	  LuckPoints = 0;
-	  var element = document.querySelectorAll("#sheet #advantages .desc");
-	  for (var i = 0; i < element.length; i++) {
-		var html = element[i].innerHTML.search("Luck")
-		if ((html == 0) && (LuckUsed == false)) {
-		  HasLuck = true;
-		  LuckPoints = parseInt(document.querySelectorAll("#sheet #advantages .pts")[i].innerHTML);
-		}
-	  }
-	  if ((HasLuck == true) && (LuckUsed == false)) {
-		textToClipboard(FirstDieRoll[1]);
-		if (confirm(FirstDieRoll[1] + "\nUse Luck?")) {
-		  BestRollData = parseRollData(rData, BestRoll)
-		  BestDieRollText = BestRollData.split("|");
-		  luckText = "- Luck Used! - " + BestDieRollText[1] + "\nPlease, don't refresh your browser... Luck will return automatically.";
-		  console.log(luckText);
-		  textToClipboard(BestDieRollText[1]);
-		  alert(luckText);
-		  var element = document.querySelectorAll("#sheet #advantages .desc");
-		  for (var i = 0; i < element.length; i++) {
-			var html = element[i].innerHTML.search("Luck")
-			if ((html == 0) && (LuckUsed == false)) {
-			  LuckPoints = parseInt(document.querySelectorAll("#sheet #advantages .pts")[i].innerHTML);
-			  SetClearLuck(parseInt(LuckPoints));
-			  console.log(new Date());
-			  LuckUsed = true;
-			}
-		  }
-		}
-	  } else {
-		textToClipboard(FirstDieRoll[1]);
-		alert(FirstDieRoll[1]);
-	  }
-	}
+    function pushedRollButton(rData) {
+      console.log(rData);
+      DiceRolled[0] = parseRollData(rData, 0);
+      FirstDieRoll = DiceRolled[0].split("|");
+      DiceRolled[1] = parseRollData(rData, 0);
+      DiceRolled[2] = parseRollData(rData, 0);
+      console.log(FirstDieRoll[1]);
+      BestDieRoll = findBestRoll(DiceRolled);
+      skillName = rData.split("}");
+      RollButtonPushed = skillName[0].split("{");
+      if (RollButtonPushed[1] == "Damage") {
+        BestRoll = BestDieRoll[2];
+      } else {
+        BestRoll = BestDieRoll[0];
+      }
+      LuckPoints = 0;
+      var element = document.querySelectorAll("#sheet #advantages .desc");
+      for (var i = 0; i < element.length; i++) {
+        var html = element[i].innerHTML.search("Luck")
+        if ((html == 0) && (LuckUsed == false)) {
+          HasLuck = true;
+          LuckPoints = parseInt(document.querySelectorAll("#sheet #advantages .pts")[i].innerHTML);
+        }
+      }
+      if ((HasLuck == true) && (LuckUsed == false)) {
+        textToClipboard(FirstDieRoll[1]);
+        if (confirm(FirstDieRoll[1] + "\nUse Luck?")) {
+          BestRollData = parseRollData(rData, BestRoll)
+          BestDieRollText = BestRollData.split("|");
+          luckText = "- Luck Used! - " + BestDieRollText[1] + "\nPlease, don't refresh your browser... Luck will return automatically.";
+          console.log(luckText);
+          textToClipboard(BestDieRollText[1]);
+          alert(luckText);
+          var element = document.querySelectorAll("#sheet #advantages .desc");
+          for (var i = 0; i < element.length; i++) {
+            var html = element[i].innerHTML.search("Luck")
+            if ((html == 0) && (LuckUsed == false)) {
+              LuckPoints = parseInt(document.querySelectorAll("#sheet #advantages .pts")[i].innerHTML);
+              SetClearLuck(parseInt(LuckPoints));
+              console.log(new Date());
+              LuckUsed = true;
+            }
+          }
+        }
+      } else {
+        textToClipboard(FirstDieRoll[1]);
+        alert(FirstDieRoll[1]);
+      }
+    }
 
-	function parseRollData(rData, bData) {
-	  //rData = "3d+0(1) [13] |+0| {Skill/Stat Roll}";
-	  var dieTotal = 0;
-	  skillName = rData.split("}");
-	  skillRoll = skillName[0].split("{");
-	  var rData = rData.replace(/\s+/g, "");
-	  skillPenalty = rData.split(/\|/g);
-	  makeRoll = skillPenalty[0].split("]");
-	  levelRoll = makeRoll[0].split("[");
-	  timesRoll = levelRoll[0].split(")");
-	  multiplyerRoll = timesRoll[0].split("(");
-	  addRoll = multiplyerRoll[0].split("d");
-	  ModifierRoll = addRoll[1];
-	  numDice = addRoll[0];
-	  var i;
-	  for (i = 1; i < (parseInt(numDice) + 1); i++) {
-		dieVal = rollDie(6);
-		dieTotal = dieTotal + dieVal;
-	  }
-	  dieceTotal = dieTotal;
-	  dieTotal = dieTotal + parseInt(ModifierRoll);
-	  dieTotal = dieTotal * parseInt(multiplyerRoll[1]);
-	  if (parseInt(bData) != 0) {
-		makeMissRollText = makeMissRoll(parseInt(levelRoll[1]), parseInt(bData), parseInt(skillPenalty[1]), skillRoll[1]);
-	  } else {
-		makeMissRollText = makeMissRoll(parseInt(levelRoll[1]), parseInt(dieTotal), parseInt(skillPenalty[1]), skillRoll[1]);
-	  }
-	  return makeMissRollText;
-	}
+    function parseRollData(rData, bData) {
+      //rData = "3d+0(1) [13] |+0| {Skill/Stat Roll}";
+      var dieTotal = 0;
+      skillName = rData.split("}");
+      skillRoll = skillName[0].split("{");
+      var rData = rData.replace(/\s+/g, "");
+      skillPenalty = rData.split(/\|/g);
+      makeRoll = skillPenalty[0].split("]");
+      levelRoll = makeRoll[0].split("[");
+      timesRoll = levelRoll[0].split(")");
+      multiplyerRoll = timesRoll[0].split("(");
+      addRoll = multiplyerRoll[0].split("d");
+      ModifierRoll = addRoll[1];
+      numDice = addRoll[0];
+      var i;
+      for (i = 1; i < (parseInt(numDice) + 1); i++) {
+        dieVal = rollDie(6);
+        dieTotal = dieTotal + dieVal;
+      }
+      dieceTotal = dieTotal;
+      dieTotal = dieTotal + parseInt(ModifierRoll);
+      dieTotal = dieTotal * parseInt(multiplyerRoll[1]);
+      if (parseInt(bData) != 0) {
+        makeMissRollText = makeMissRoll(parseInt(levelRoll[1]), parseInt(bData), parseInt(skillPenalty[1]), skillRoll[1]);
+      } else {
+        makeMissRollText = makeMissRoll(parseInt(levelRoll[1]), parseInt(dieTotal), parseInt(skillPenalty[1]), skillRoll[1]);
+      }
+      return makeMissRollText;
+    }
 
-	function makeMissRoll(makeRoll, dieTotal, skillPenalty, skillRoll) {
-	  var makeRoll = (makeRoll - dieTotal) + skillPenalty;
-	  switch (dieTotal) {
-		case 3:
-		case 4:
-		  MakeMiss = "Critically Succeeded";
-		  break;
-		case 5:
-		  if (parseInt(makeRoll) >= 0) {
-			MakeMiss = "Succeeded"
-		  } else {
-			MakeMiss = "Failed"
-		  }
-		  if (parseInt(makeRoll) > 14) {
-			MakeMiss = "Critically Succeeded";
-		  }
-		  break;
-		case 6:
-		  if (parseInt(makeRoll) >= 0) {
-			MakeMiss = "Succeeded"
-		  } else {
-			MakeMiss = "Failed"
-		  }
-		  if (parseInt(makeRoll) > 15) {
-			MakeMiss = "Critically Succeeded";
-		  }
-		  break;
-		case 17:
-		  if (parseInt(makeRoll) > 15) {
-			MakeMiss = "Failed";
-		  } else {
-			MakeMiss = "Critically Failed";
-		  }
-		  break;
-		case 18:
-		  MakeMiss = "Critically Failed";
-		  break;
-		default:
-		  if (parseInt(makeRoll) >= 0) {
-			MakeMiss = "Succeeded"
-		  } else {
-			MakeMiss = "Failed"
-		  }
-	  }
-	  switch (skillRoll) {
-		case "Damage":
-		  RollText = dieTotal + "|Rolled " + dieTotal + " Damage.";
-		  break;
-		case "Bunch-o-Dice":
-		  RollText = dieTotal + "|Rolled " + dieTotal + " for a Bunch-o-Dice.";
-		  break;
-		default:
-		  RollText = dieTotal + "|Rolled " + dieTotal + "; " + MakeMiss + " " + skillRoll + " by: " + Math.abs(parseInt(makeRoll));
-	  }
-	  return RollText;
-	}
+    function makeMissRoll(makeRoll, dieTotal, skillPenalty, skillRoll) {
+      var makeRoll = (makeRoll - dieTotal) + skillPenalty;
+      switch (dieTotal) {
+        case 3:
+        case 4:
+          MakeMiss = "Critically Succeeded";
+          break;
+        case 5:
+          if (parseInt(makeRoll) >= 0) {
+            MakeMiss = "Succeeded"
+          } else {
+            MakeMiss = "Failed"
+          }
+          if (parseInt(makeRoll) > 14) {
+            MakeMiss = "Critically Succeeded";
+          }
+          break;
+        case 6:
+          if (parseInt(makeRoll) >= 0) {
+            MakeMiss = "Succeeded"
+          } else {
+            MakeMiss = "Failed"
+          }
+          if (parseInt(makeRoll) > 15) {
+            MakeMiss = "Critically Succeeded";
+          }
+          break;
+        case 17:
+          if (parseInt(makeRoll) > 15) {
+            MakeMiss = "Failed";
+          } else {
+            MakeMiss = "Critically Failed";
+          }
+          break;
+        case 18:
+          MakeMiss = "Critically Failed";
+          break;
+        default:
+          if (parseInt(makeRoll) >= 0) {
+            MakeMiss = "Succeeded"
+          } else {
+            MakeMiss = "Failed"
+          }
+      }
+      switch (skillRoll) {
+        case "Damage":
+          RollText = dieTotal + "|Rolled " + dieTotal + " Damage.";
+          break;
+        case "Bunch-o-Dice":
+          RollText = dieTotal + "|Rolled " + dieTotal + " for a Bunch-o-Dice.";
+          break;
+        default:
+          RollText = dieTotal + "|Rolled " + dieTotal + "; " + MakeMiss + " " + skillRoll + " by: " + Math.abs(parseInt(makeRoll));
+      }
+      return RollText;
+    }
 
-	function findBestRoll(DiceRolled) {
-	  var i;
-	  for (i = 0; i < DiceRolled.length; i++) {
-		dieText = DiceRolled[i].split("|");
-		dieTotalRolled[i] = parseInt(dieText[0]);
-	  }
-	  dieTotalRolled.sort(sortDiceRolls);
-	  return dieTotalRolled;
-	}
+    function findBestRoll(DiceRolled) {
+      var i;
+      for (i = 0; i < DiceRolled.length; i++) {
+        dieText = DiceRolled[i].split("|");
+        dieTotalRolled[i] = parseInt(dieText[0]);
+      }
+      dieTotalRolled.sort(sortDiceRolls);
+      return dieTotalRolled;
+    }
 
-	function sortDiceRolls(a, b) {
-	  return a > b ? 1 : b > a ? -1 : 0;
-	}
+    function findEncumbrance(rollName) {
+      var startEncumbrance = document.querySelector('.enc.current').value;
+      var endEncumbrance = document.querySelector('.enc:checked').value;
+      encumbranceValue = startEncumbrance - endEncumbrance;
+      switch (rollName) {
+        case "Climbing":
+        case "Judo":
+        case "Karate":
+        case "Stealth":
+          encumbranceValue * 1;
+          break;
+        case "Swimming":
+          encumbranceValue * 2;
+          break;
+        default:
+          encumbranceValue = 0;
+      }
+      if (encumbranceValue >= 0 ) {
+        encumbranceValue = "+" + encumbranceValue;
+      }
+      return encumbranceValue;
+    }
 
-	function SetClearLuck(LuckAdvantage) {
-	  switch (LuckAdvantage) {
-		case 15:
-		  setTimeout('ClearLuck()', 3600000); // 60 Minutes...
-		  break;
-		case 30:
-		  setTimeout('ClearLuck()', 1800000); // 30 Minutes...
-		  break;
-		case 60:
-		  setTimeout('ClearLuck()', 600000); // 10 Minutes...
-		  break;
-		default:
-		  alert("Luck Oops!!!");
-	  }
-	}
+    function sortDiceRolls(a, b) {
+      return a > b ? 1 : b > a ? -1 : 0;
+    }
 
-	function ClearLuck() {
-	  var luck_cleared_time = new Date();
-	  var luck_cleared_text = "\n--- Luck Cleared On: " + luck_cleared_time + " ---";
-	  alert(luck_cleared_text);
-	  LuckUsed = false;
-	}
+    function SetClearLuck(LuckAdvantage) {
+      switch (LuckAdvantage) {
+        case 15:
+          setTimeout('ClearLuck()', 3600000); // 60 Minutes...
+          break;
+        case 30:
+          setTimeout('ClearLuck()', 1800000); // 30 Minutes...
+          break;
+        case 60:
+          setTimeout('ClearLuck()', 600000); // 10 Minutes...
+          break;
+        default:
+          alert("Luck Oops!!!");
+      }
+    }
 
-	function rollDie(num) {
-	  return Math.floor(Math.random() * (num) + 1);
-	}
+    function ClearLuck() {
+      var luck_cleared_time = new Date();
+      var luck_cleared_text = "\n--- Luck Cleared On: " + luck_cleared_time + " ---";
+      alert(luck_cleared_text);
+      LuckUsed = false;
+    }
 
-	function textToClipboard(text) {
-	  var dummy = document.createElement("input");
-	  document.body.appendChild(dummy);
-	  dummy.value = text;
-	  dummy.select();
-	  document.execCommand("copy");
-	  document.body.removeChild(dummy);
-	}
-	</script>
+    function rollDie(num) {
+      return Math.floor(Math.random() * (num) + 1);
+    }
+
+    function textToClipboard(text) {
+      var dummy = document.createElement("input");
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+    }
+    </script>
     <meta charset="utf-8" />
     <title>@NAME</title>
     <style>
